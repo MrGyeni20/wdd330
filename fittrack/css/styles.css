@@ -1,0 +1,702 @@
+/* ============================================
+   🎨 FITTRACK STYLES 
+   ============================================
+   
+   EDIT THESE SECTIONS TO CUSTOMIZE:
+   1. CSS VARIABLES (lines 10-35) - Change colors, fonts, spacing
+   2. TYPOGRAPHY (lines 40-60) - Change font sizes
+   3. ANIMATIONS (lines 500+) - Modify animation speeds
+   
+   ============================================ */
+
+/* 🎨 CSS VARIABLES - EDIT COLORS HERE */
+:root {
+    /*  Primary Colors */
+    --color-primary: #FF6B6B;        /* Main red color */
+    --color-primary-dark: #E85454;   /* Darker red for hover */
+    --color-primary-light: #FFE5E5;  /* Light red background */
+    
+    /*  Secondary Colors */
+    --color-secondary: #4ECDC4;      /* Teal color */
+    --color-secondary-dark: #3DBDB4; /* Darker teal */
+    --color-secondary-light: #E0F7F6; /* Light teal */
+    
+    /*Accent Colors */
+    --color-success: #95E1D3;        /* Success green */
+    --color-warning: #FFD93D;        /* Warning yellow */
+    --color-error: #FF6B6B;          /* Error red */
+    
+    /*  Neutral Colors */
+    --color-bg: #F7FFF7;             /* Off-white background */
+    --color-text: #2C3E50;           /* Dark gray text */
+    --color-text-light: #7F8C8D;     /* Light gray text */
+    --color-border: #E0E0E0;         /* Border color */
+    --color-white: #FFFFFF;
+    
+    /* Font Family */
+    --font-primary: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    
+    /* Spacing*/
+    --spacing-xs: 0.25rem;  /* 4px */
+    --spacing-sm: 0.5rem;   /* 8px */
+    --spacing-md: 1rem;     /* 16px */
+    --spacing-lg: 1.5rem;   /* 24px */
+    --spacing-xl: 2rem;     /* 32px */
+    
+    /* Border Radius  */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+    
+    /* Animation Speed */
+    --transition-fast: 0.2s;
+    --transition-normal: 0.3s;
+    --transition-slow: 0.5s;
+}
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-bg) 50%, var(--color-secondary-light) 100%);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* 📝 EDIT: Change font sizes here */
+h1 { font-size: 1.75rem; font-weight: 700; }
+h2 { font-size: 1.25rem; font-weight: 600; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+
+/* ============================================
+   LAYOUT COMPONENTS
+   ============================================ */
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* 📝 EDIT: Change grid layout breakpoints */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: 300px 1fr 350px; /* 📝 EDIT: Change column widths */
+    }
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.logo-icon {
+    font-size: 2rem;
+}
+
+.logo-text {
+    color: var(--color-primary);
+    margin: 0;
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+
+.card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-lg);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+/* 🎨 ANIMATION: Card hover effect */
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.card-icon {
+    font-size: 1.5rem;
+}
+
+.card-title {
+    margin: 0;
+    color: var(--color-text);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-decoration: none;
+}
+
+/* 🎨 ANIMATION: Button hover with scale */
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-dark);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.btn-secondary {
+    background: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.btn-secondary:hover {
+    background: var(--color-secondary-dark);
+    box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
+}
+
+.btn-large {
+    width: 100%;
+    padding: var(--spacing-md);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.btn-icon-only {
+    padding: var(--spacing-sm);
+    font-size: 1.2rem;
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.btn-quote {
+    margin-top: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color-white);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-quote:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   FORMS & INPUTS
+   ============================================ */
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.select-input {
+    background-color: var(--color-white);
+    cursor: pointer;
+}
+
+.select-input-small {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   STATISTICS CARD
+   ============================================ */
+
+.stats-card {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #E85454 100%);
+    color: var(--color-white);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+.stat-item {
+    text-align: center;
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+}
+
+.stat-item-full {
+    grid-column: 1 / -1;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-value-small {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* ============================================
+   QUOTE CARD
+   ============================================ */
+
+.quote-card {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #FF8E8E 100%);
+    color: var(--color-white);
+}
+
+.quote-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+}
+
+.quote-author {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-style: normal;
+}
+
+/* ============================================
+   EXERCISE SUGGESTIONS
+   ============================================ */
+
+.search-box {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.search-input {
+    flex: 1;
+}
+
+.exercise-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.exercise-item {
+    padding: var(--spacing-md);
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+/* 🎨 ANIMATION: Exercise item hover */
+.exercise-item:hover {
+    background: var(--color-primary-light);
+    transform: translateX(5px);
+}
+
+.exercise-name {
+    font-weight: 600;
+    color: var(--color-text);
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.exercise-details {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+}
+
+/* ============================================
+   WORKOUT HISTORY
+   ============================================ */
+
+.workout-list {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.workout-card {
+    padding: var(--spacing-md);
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+    /* 🎨 ANIMATION: Fade in animation applied via JS */
+    animation: fadeIn var(--transition-slow) ease-out;
+}
+
+.workout-card:hover {
+    background: var(--color-primary-light);
+}
+
+.workout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-sm);
+}
+
+.workout-info h3 {
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xs);
+}
+
+.workout-date {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+}
+
+.workout-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.workout-badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-lg);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+/* 📝 EDIT: Add more workout type colors here */
+.workout-badge.cardio {
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+}
+
+.workout-badge.strength {
+    background: #D6E9FF;
+    color: #2563EB;
+}
+
+.workout-badge.flexibility {
+    background: var(--color-success);
+    color: #059669;
+}
+
+.workout-stat {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+}
+
+.delete-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: transparent;
+    border: none;
+    color: var(--color-error);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform var(--transition-fast);
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: var(--spacing-md);
+}
+
+.empty-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xs);
+}
+
+.empty-subtext {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+}
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+
+.toast {
+    position: fixed;
+    top: 100px;
+    right: var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-success);
+    color: var(--color-text);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    /* 🎨 ANIMATION: Slide in from right */
+    animation: slideIn var(--transition-normal) ease-out;
+    font-weight: 500;
+}
+
+.toast.error {
+    background: var(--color-error);
+    color: var(--color-white);
+}
+
+.toast.hidden {
+    display: none;
+}
+
+/* ============================================
+   LOADING SPINNER
+   ============================================ */
+
+.loading {
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.loading.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto var(--spacing-md);
+    border: 4px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    /* 🎨 ANIMATION: Spinning loader */
+    animation: spin 1s linear infinite;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+.footer-note {
+    margin-top: var(--spacing-xs);
+    font-size: 0.8rem;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.hidden {
+    display: none !important;
+}
+
+.text-muted {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   🎨 ANIMATIONS - EDIT SPEEDS/EFFECTS HERE
+   ============================================ */
+
+/* 📝 EDIT: Change animation duration (currently 0.5s) */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 📝 EDIT: Change slide direction or speed */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 📝 EDIT: Change spin speed (currently 1s) */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 767px) {
+    .header-content {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    .logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .card {
+        padding: var(--spacing-md);
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .toast {
+        right: var(--spacing-sm);
+        left: var(--spacing-sm);
+    }
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+
+/* Customize scrollbar colors */
+.workout-list::-webkit-scrollbar,
+.exercise-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.workout-list::-webkit-scrollbar-track,
+.exercise-list::-webkit-scrollbar-track {
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+}
+
+.workout-list::-webkit-scrollbar-thumb,
+.exercise-list::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: var(--radius-md);
+}
+
+.workout-list::-webkit-scrollbar-thumb:hover,
+.exercise-list::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-dark);
+}
