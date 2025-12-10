@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FitTrack - Personal fitness tracking application to log workouts, track progress, and stay motivated">
+    <meta name="keywords" content="fitness, workout tracker, exercise log, health">
+    <meta name="author" content="Your Name">
+    
+    <title>FitTrack - Personal Fitness Logger</title>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏋️</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🏋️</span>
+                    <h1 class="logo-text">FitTrack</h1>
+                </div>
+                <button id="exportBtn" class="btn btn-secondary">
+                    <span class="btn-icon">📥</span>
+                    Export Data
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage"></span>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="grid">
+                
+                <aside class="sidebar">
+                    
+                    <section class="card stats-card">
+                        <div class="card-header">
+                            <span class="card-icon">📊</span>
+                            <h2 class="card-title">This Week</h2>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Workouts</span>
+                                <span id="totalWorkouts" class="stat-value">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Calories</span>
+                                <span id="totalCalories" class="stat-value">0</span>
+                            </div>
+                            <div class="stat-item stat-item-full">
+                                <span class="stat-label">Top Exercise</span>
+                                <span id="topExercise" class="stat-value-small">None</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="card quote-card">
+                        <blockquote id="quoteText" class="quote-text">
+                            "Loading inspiration..."
+                        </blockquote>
+                        <cite id="quoteAuthor" class="quote-author">— FitTrack</cite>
+                        <button id="newQuoteBtn" class="btn btn-quote">
+                            <span class="btn-icon">🔄</span>
+                            New Quote
+                        </button>
+                    </section>
+
+                    <section class="card exercise-card">
+                        <h2 class="card-title">Exercise Ideas</h2>
+                        <div class="search-box">
+                            <input 
+                                type="text" 
+                                id="muscleSearch" 
+                                class="input search-input" 
+                                placeholder="e.g., biceps, legs, chest"
+                            >
+                            <button id="searchExercisesBtn" class="btn btn-icon-only">
+                                🔍
+                            </button>
+                        </div>
+                        <div id="loadingExercises" class="loading hidden">
+                            <div class="spinner"></div>
+                            <p>Searching exercises...</p>
+                        </div>
+                        <div id="exerciseList" class="exercise-list">
+                            <p class="text-muted">Search for exercises by muscle group</p>
+                        </div>
+                    </section>
+                    
+                </aside>
+
+                <section class="main-section">
+                    <div class="card form-card">
+                        <div class="card-header">
+                            <span class="card-icon">➕</span>
+                            <h2 class="card-title">Log Workout</h2>
+                        </div>
+                        
+                        <form id="workoutForm" class="workout-form">
+                            <div class="form-group">
+                                <label for="exerciseName" class="form-label">Exercise Name</label>
+                                <input 
+                                    type="text" 
+                                    id="exerciseName" 
+                                    class="input" 
+                                    placeholder="e.g., Running, Push-ups" 
+                                    required
+                                    autocomplete="off"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="duration" class="form-label">Duration (minutes)</label>
+                                <input 
+                                    type="number" 
+                                    id="duration" 
+                                    class="input" 
+                                    placeholder="30" 
+                                    min="1" 
+                                    max="300"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="calories" class="form-label">Calories Burned</label>
+                                <input 
+                                    type="number" 
+                                    id="calories" 
+                                    class="input" 
+                                    placeholder="300" 
+                                    min="1"
+                                    max="5000"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="workoutType" class="form-label">Workout Type</label>
+                                <select id="workoutType" class="input select-input" required>
+                                    <option value="cardio">Cardio</option>
+                                    <option value="strength">Strength</option>
+                                    <option value="flexibility">Flexibility</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-large">
+                                Log Workout
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="history-section">
+                    <div class="card history-card">
+                        <div class="card-header">
+                            <div class="header-left">
+                                <span class="card-icon">📅</span>
+                                <h2 class="card-title">History</h2>
+                            </div>
+                            <div class="filter-group">
+                                <select id="filterSelect" class="input select-input-small">
+                                    <option value="all">All Time</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                    <option value="cardio">Cardio Only</option>
+                                    <option value="strength">Strength Only</option>
+                                    <option value="flexibility">Flexibility Only</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="workoutList" class="workout-list">
+                            <div class="empty-state">
+                                <span class="empty-icon">💪</span>
+                                <p class="empty-text">No workouts logged yet.</p>
+                                <p class="empty-subtext">Start by adding your first workout!</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 FitTrack. Built with 💪 by <strong>Your Name</strong></p>
+            <p class="footer-note">Data stored locally in your browser</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

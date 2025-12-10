@@ -1,4 +1,4 @@
-const API_KEY = ''; // API KEY
+const API_KEY = 'CIpSCLAquOsqYEBYnMNS8g==MgKjxSHoGt9zBz2D'; // API KEY
 const API_BASE_URL = 'https://api.api-ninjas.com/v1/exercises';
 const MAX_RESULTS = 6;
 
