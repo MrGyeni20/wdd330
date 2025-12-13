@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="FitTrack - Personal fitness tracking application to log workouts, track progress, and stay motivated">
-    <meta name="keywords" content="fitness, workout tracker, exercise log, health">
+    <meta name="keywords" content="fitness, workout tracker, exercise log, health, calories, training">
     <meta name="author" content="Nana Kwesi Gyeni">
     
     <title>FitTrack - Personal Fitness Logger</title>
     
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
     
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
+    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏋️</text></svg>">
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
@@ -25,7 +29,7 @@
                     <span class="logo-icon">🏋️</span>
                     <h1 class="logo-text">FitTrack</h1>
                 </div>
-                <button id="exportBtn" class="btn btn-secondary">
+                <button id="exportBtn" class="btn btn-secondary" title="Export workout data">
                     <span class="btn-icon">📥</span>
                     Export Data
                 </button>
@@ -33,20 +37,24 @@
         </div>
     </header>
 
-    <div id="toast" class="toast hidden">
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden" role="alert">
         <span id="toastMessage"></span>
     </div>
 
+    <!-- Main Content -->
     <main class="main-content">
         <div class="container">
             <div class="grid">
                 
+                <!-- Sidebar - Stats & Quotes -->
                 <aside class="sidebar">
                     
-                    <section class="card stats-card">
+                    <!-- Weekly Statistics Card -->
+                    <section class="card stats-card" aria-labelledby="stats-title">
                         <div class="card-header">
                             <span class="card-icon">📊</span>
-                            <h2 class="card-title">This Week</h2>
+                            <h2 id="stats-title" class="card-title">This Week</h2>
                         </div>
                         <div class="stats-grid">
                             <div class="stat-item">
@@ -64,41 +72,51 @@
                         </div>
                     </section>
 
-                    <section class="card quote-card">
+                    <!-- Inspirational Quote Card -->
+                    <section class="card quote-card" aria-labelledby="quote-title">
+                        <h2 id="quote-title" class="visually-hidden">Inspirational Quote</h2>
                         <blockquote id="quoteText" class="quote-text">
                             "Loading inspiration..."
                         </blockquote>
                         <cite id="quoteAuthor" class="quote-author">— FitTrack</cite>
-                        <button id="newQuoteBtn" class="btn btn-quote">
+                        <button id="newQuoteBtn" class="btn btn-quote" title="Get new quote">
                             <span class="btn-icon">🔄</span>
                             New Quote
                         </button>
                     </section>
 
-                    <section class="card exercise-card">
-                        <h2 class="card-title">Exercise Ideas</h2>
+                    <!-- Exercise Suggestions Card -->
+                    <section class="card exercise-card" aria-labelledby="exercise-title">
+                        <h2 id="exercise-title" class="card-title">Exercise Ideas</h2>
                         <div class="search-box">
                             <input 
                                 type="text" 
                                 id="muscleSearch" 
                                 class="input search-input" 
                                 placeholder="e.g., biceps, legs, chest"
+                                aria-label="Search exercises by muscle group"
                             >
-                            <button id="searchExercisesBtn" class="btn btn-icon-only">
+                            <button 
+                                id="searchExercisesBtn" 
+                                class="btn btn-icon-only" 
+                                title="Search exercises"
+                                aria-label="Search exercises"
+                            >
                                 🔍
                             </button>
                         </div>
-                        <div id="loadingExercises" class="loading hidden">
-                            <div class="spinner"></div>
+                        <div id="loadingExercises" class="loading hidden" role="status">
+                            <div class="spinner" aria-hidden="true"></div>
                             <p>Searching exercises...</p>
                         </div>
-                        <div id="exerciseList" class="exercise-list">
+                        <div id="exerciseList" class="exercise-list" role="list">
                             <p class="text-muted">Search for exercises by muscle group</p>
                         </div>
                     </section>
                     
                 </aside>
 
+                <!-- Main Section - Workout Form -->
                 <section class="main-section">
                     <div class="card form-card">
                         <div class="card-header">
@@ -106,9 +124,9 @@
                             <h2 class="card-title">Log Workout</h2>
                         </div>
                         
-                        <form id="workoutForm" class="workout-form">
+                        <form id="workoutForm" class="workout-form" novalidate>
                             <div class="form-group">
-                                <label for="exerciseName" class="form-label">Exercise Name</label>
+                                <label for="exerciseName" class="form-label">Exercise Name *</label>
                                 <input 
                                     type="text" 
                                     id="exerciseName" 
@@ -116,11 +134,15 @@
                                     placeholder="e.g., Running, Push-ups" 
                                     required
                                     autocomplete="off"
+                                    maxlength="100"
+                                    aria-required="true"
+                                    aria-describedby="exerciseHelp"
                                 >
+                                <span id="exerciseHelp" class="visually-hidden">Enter the name of your exercise</span>
                             </div>
 
                             <div class="form-group">
-                                <label for="duration" class="form-label">Duration (minutes)</label>
+                                <label for="duration" class="form-label">Duration (minutes) *</label>
                                 <input 
                                     type="number" 
                                     id="duration" 
@@ -129,11 +151,14 @@
                                     min="1" 
                                     max="300"
                                     required
+                                    aria-required="true"
+                                    aria-describedby="durationHelp"
                                 >
+                                <span id="durationHelp" class="visually-hidden">Enter duration in minutes</span>
                             </div>
 
                             <div class="form-group">
-                                <label for="calories" class="form-label">Calories Burned</label>
+                                <label for="calories" class="form-label">Calories Burned *</label>
                                 <input 
                                     type="number" 
                                     id="calories" 
@@ -142,12 +167,20 @@
                                     min="1"
                                     max="5000"
                                     required
+                                    aria-required="true"
+                                    aria-describedby="caloriesHelp"
                                 >
+                                <span id="caloriesHelp" class="visually-hidden">Enter calories burned</span>
                             </div>
 
                             <div class="form-group">
-                                <label for="workoutType" class="form-label">Workout Type</label>
-                                <select id="workoutType" class="input select-input" required>
+                                <label for="workoutType" class="form-label">Workout Type *</label>
+                                <select 
+                                    id="workoutType" 
+                                    class="input select-input" 
+                                    required
+                                    aria-required="true"
+                                >
                                     <option value="cardio">Cardio</option>
                                     <option value="strength">Strength</option>
                                     <option value="flexibility">Flexibility</option>
@@ -161,6 +194,7 @@
                     </div>
                 </section>
 
+                <!-- History Section - Workout List -->
                 <section class="history-section">
                     <div class="card history-card">
                         <div class="card-header">
@@ -169,7 +203,11 @@
                                 <h2 class="card-title">History</h2>
                             </div>
                             <div class="filter-group">
-                                <select id="filterSelect" class="input select-input-small">
+                                <select 
+                                    id="filterSelect" 
+                                    class="input select-input-small"
+                                    aria-label="Filter workouts"
+                                >
                                     <option value="all">All Time</option>
                                     <option value="week">This Week</option>
                                     <option value="month">This Month</option>
@@ -180,7 +218,7 @@
                             </div>
                         </div>
 
-                        <div id="workoutList" class="workout-list">
+                        <div id="workoutList" class="workout-list" role="list">
                             <div class="empty-state">
                                 <span class="empty-icon">💪</span>
                                 <p class="empty-text">No workouts logged yet.</p>
@@ -194,13 +232,30 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025  FitTrack. Built with 💪 by <strong>Your Name</strong></p>
-            <p class="footer-note">Data stored locally in your browser</p>
+            <p>&copy; 2025 FitTrack. Built with 💪 by <strong>Nana Kwesi Gyeni</strong></p>
+            <p class="footer-note">Data stored locally in your browser using localStorage</p>
         </div>
     </footer>
 
+    <!-- Visually Hidden Helper -->
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+
+    <!-- JavaScript Modules -->
     <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
